@@ -1,6 +1,42 @@
 import numpy as np
 from operator import itemgetter
 
+# Burrows-Wheeler-Transformation
+# The forward transformation works as follows: Let's say we have a sequence with length n,
+# first write every shift of that string into a n x n matrix:
+#
+# Input: "bananabar"
+#
+# b a n a n a b a r
+# r b a n a n a b a
+# a r b a n a n a b
+# b a r b a n a n a
+# a b a r b a n a n
+# n a b a r b a n a
+# a n a b a r b a n
+# n a n a b a r b a
+# a n a n a b a r b
+
+# Then we sort that matrix by its rows.
+# The output of the transformation then is the last column and the row index in which the original string is in:
+#
+#                .-.
+# a b a r b a n a n
+# a n a b a r b a n
+# a n a n a b a r b
+# a r b a n a n a b
+# b a n a n a b a r <- 4
+# b a r b a n a n a
+# n a b a r b a n a
+# n a n a b a r b a
+# r b a n a n a b a
+#                '-'
+#
+# Output: ("nnbbraaaa", 4)
+# Of course we want to restore the original input, therefore the goal of this Kata is to write both,
+# the encode and decode functions. Together they should work as the identity function on lists.
+# (Note: For the empty input, the row number is ignored.)
+
 
 def encode(s):
     if s == "":
